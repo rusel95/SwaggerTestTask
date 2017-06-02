@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct User {
     var username: String?
@@ -16,4 +17,16 @@ struct User {
         self.username = username
         self.lastLogin = lastLogin
     }
+}
+
+class AllUsers {
+    
+    var array = [User]()
+    
+    init(response: Any) {
+        let json = JSON(response)
+        print(json)
+        
+    }
+    
 }

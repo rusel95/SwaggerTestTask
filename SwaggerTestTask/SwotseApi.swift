@@ -15,23 +15,23 @@ class SwotseApi {
     private init() { }
     
     
-    private let apiSkeletonUrl = "http://api.openweathermap.org/data/2.5/weather"
-    private let apiKeyUrl = "&appid=4a069077d6974db10f255af576ef8baa"
-    private let apiAccuracyUrl = "&type=accurate"
-    private let apiMetricUrl = "&units=metric"
+    private let apiSkeletonUrl = "http://174.138.54.52/authorization/"
     
-    func getAllUsers(latitude: Double, longitude: Double, giveData: @escaping (WeatherResponse?) -> Void) -> Void {
+    func getAllUsers(giveData: @escaping ([User]?) -> Void) -> Void {
         
-        let locationUrl = "?lat=" + String(latitude) + "&lon=" + String(longitude)
-        let urlForRequest = apiSkeletonUrl + locationUrl + apiAccuracyUrl + apiMetricUrl + apiKeyUrl
+        let allUsersUrl = "allUsers/"
+        let urlForRequest = apiSkeletonUrl + allUsersUrl
         
-        Alamofire.request(urlForRequest).responseObject { (response: DataResponse<WeatherResponse>) in
+        Alamofire.request(urlForRequest).responseJSON { response in
             
             switch response.result {
                 
             case .success:
-                let weatherResponse = response.result.value!
-                giveData(weatherResponse)
+                let data = response.result.value!
+                
+                let allUsers = AllUsers(response: data).array
+                
+                giveData(allUsers)
                 
             case .failure(let error):
                 print(error.localizedDescription, urlForRequest)
