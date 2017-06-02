@@ -8,13 +8,14 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
 struct User {
-    var username: String?
+    var userName: String?
     var lastLogin: String?
     
-    init(username: String, lastLogin: String) {
-        self.username = username
+    init(userName: String?, lastLogin: String?) {
+        self.userName = userName
         self.lastLogin = lastLogin
     }
 }
@@ -24,9 +25,14 @@ class AllUsers {
     var array = [User]()
     
     init(response: Any) {
-        let json = JSON(response)
-        print(json)
-        
+        let jsonArray = JSON(response)
+    
+        for userFullInfo in jsonArray {
+            let tempName = userFullInfo.1["username"].string
+            let tempLastLogin = userFullInfo.1["last_login"].string
+            let tempUser = User(userName: tempName, lastLogin: tempLastLogin)
+            array.append(tempUser)
+        }
     }
     
 }
