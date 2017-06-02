@@ -16,6 +16,7 @@
 		84BCD96F1EE1A3A000B80197 /* HelperInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCD96E1EE1A3A000B80197 /* HelperInstance.swift */; };
 		84BCD9711EE1A3BC00B80197 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCD9701EE1A3BC00B80197 /* Extensions.swift */; };
 		84BCD9761EE1A5BE00B80197 /* AllUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCD9751EE1A5BE00B80197 /* AllUsersTableViewController.swift */; };
+		84BCD9791EE1E00900B80197 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCD9781EE1E00900B80197 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		84BCD96E1EE1A3A000B80197 /* HelperInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperInstance.swift; sourceTree = "<group>"; };
 		84BCD9701EE1A3BC00B80197 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84BCD9751EE1A5BE00B80197 /* AllUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllUsersTableViewController.swift; sourceTree = "<group>"; };
+		84BCD9781EE1E00900B80197 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C10117303CA824F5FAD6C153 /* Pods-SwaggerTestTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwaggerTestTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwaggerTestTask/Pods-SwaggerTestTask.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				849C20311EE1A05500866D1B /* AppDelegate.swift */,
-				84BCD96B1EE1A37500B80197 /* SwotseApi.swift */,
+				84BCD9771EE1DF0F00B80197 /* Api */,
 				84BCD9721EE1A3F700B80197 /* Models */,
 				84BCD9731EE1A40200B80197 /* Views */,
 				84BCD9741EE1A40800B80197 /* Controllers */,
@@ -92,6 +94,7 @@
 		84BCD9721EE1A3F700B80197 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84BCD9781EE1E00900B80197 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -110,6 +113,14 @@
 				84BCD9751EE1A5BE00B80197 /* AllUsersTableViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		84BCD9771EE1DF0F00B80197 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				84BCD96B1EE1A37500B80197 /* SwotseApi.swift */,
+			);
+			name = Api;
 			sourceTree = "<group>";
 		};
 		886557EAE36F2595C340DDEC /* Frameworks */ = {
@@ -252,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BCD9791EE1E00900B80197 /* User.swift in Sources */,
 				84BCD9711EE1A3BC00B80197 /* Extensions.swift in Sources */,
 				84BCD96F1EE1A3A000B80197 /* HelperInstance.swift in Sources */,
 				84BCD9761EE1A5BE00B80197 /* AllUsersTableViewController.swift in Sources */,
