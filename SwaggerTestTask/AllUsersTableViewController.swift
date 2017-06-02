@@ -25,25 +25,26 @@ class AllUsersTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
 
-        // Configure the cell...
+        let tempUser = allUsers[indexPath.row]
+        cell.textLabel?.text = tempUser.userName
+        cell.detailTextLabel?.text = tempUser.lastLogin
 
         return cell
     }
 
 }
 
+
+//MARK: my functions
 extension AllUsersTableViewController {
     
     func getAllUsers() {
-        SwotseApi.shared.getAllUsers() {_ in 
-            
+        SwotseApi.shared.getAllUsers() { response in
+            self.allUsers = response!
+            self.tableView.reloadData()
         }
-    }
-    
-    func updateUI() {
-        
     }
     
 }
