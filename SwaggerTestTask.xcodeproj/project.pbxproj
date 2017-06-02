@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D926F0256DA76950969A119 /* Pods_SwaggerTestTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472FB650A2769791C954C15C /* Pods_SwaggerTestTask.framework */; };
 		849C20321EE1A05500866D1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C20311EE1A05500866D1B /* AppDelegate.swift */; };
 		849C20341EE1A05500866D1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C20331EE1A05500866D1B /* ViewController.swift */; };
 		849C20371EE1A05500866D1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849C20351EE1A05500866D1B /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		472FB650A2769791C954C15C /* Pods_SwaggerTestTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwaggerTestTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		748FA1CAC81958F78C38C032 /* Pods-SwaggerTestTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwaggerTestTask.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwaggerTestTask/Pods-SwaggerTestTask.debug.xcconfig"; sourceTree = "<group>"; };
 		849C202E1EE1A05500866D1B /* SwaggerTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwaggerTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849C20311EE1A05500866D1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		849C20331EE1A05500866D1B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		849C20381EE1A05500866D1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		849C203B1EE1A05500866D1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		849C203D1EE1A05600866D1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C10117303CA824F5FAD6C153 /* Pods-SwaggerTestTask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwaggerTestTask.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwaggerTestTask/Pods-SwaggerTestTask.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D926F0256DA76950969A119 /* Pods_SwaggerTestTask.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				849C20301EE1A05500866D1B /* SwaggerTestTask */,
 				849C202F1EE1A05500866D1B /* Products */,
+				890B14AF5D47934F0C96907F /* Pods */,
+				886557EAE36F2595C340DDEC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = SwaggerTestTask;
 			sourceTree = "<group>";
 		};
+		886557EAE36F2595C340DDEC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				472FB650A2769791C954C15C /* Pods_SwaggerTestTask.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		890B14AF5D47934F0C96907F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				748FA1CAC81958F78C38C032 /* Pods-SwaggerTestTask.debug.xcconfig */,
+				C10117303CA824F5FAD6C153 /* Pods-SwaggerTestTask.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 849C20401EE1A05600866D1B /* Build configuration list for PBXNativeTarget "SwaggerTestTask" */;
 			buildPhases = (
+				3104C6BDA7660F6FDAB93E98 /* [CP] Check Pods Manifest.lock */,
 				849C202A1EE1A05500866D1B /* Sources */,
 				849C202B1EE1A05500866D1B /* Frameworks */,
 				849C202C1EE1A05500866D1B /* Resources */,
+				61D29E91472AB8C3F81BA36B /* [CP] Embed Pods Frameworks */,
+				5CBD18526D6D44122E077E2E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,7 +123,6 @@
 				TargetAttributes = {
 					849C202D1EE1A05500866D1B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = FWHF624C4H;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -131,6 +157,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3104C6BDA7660F6FDAB93E98 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5CBD18526D6D44122E077E2E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwaggerTestTask/Pods-SwaggerTestTask-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61D29E91472AB8C3F81BA36B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwaggerTestTask/Pods-SwaggerTestTask-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		849C202A1EE1A05500866D1B /* Sources */ = {
@@ -257,10 +331,12 @@
 		};
 		849C20411EE1A05600866D1B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 748FA1CAC81958F78C38C032 /* Pods-SwaggerTestTask.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FWHF624C4H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwaggerTestTask/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rusel95.SwaggerTestTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -270,10 +346,12 @@
 		};
 		849C20421EE1A05600866D1B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C10117303CA824F5FAD6C153 /* Pods-SwaggerTestTask.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FWHF624C4H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SwaggerTestTask/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rusel95.SwaggerTestTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
