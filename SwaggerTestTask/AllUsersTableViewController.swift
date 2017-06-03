@@ -16,6 +16,10 @@ class AllUsersTableViewController: UITableViewController {
         super.viewDidLoad()
         
         getAllUsers()
+        
+        SwotseApi.shared.loginUserWith(username: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { (response) in
+            UserDefaults.standard.set(response, forKey: "userKey")
+        }
     }
 
     // MARK: - Table view data source

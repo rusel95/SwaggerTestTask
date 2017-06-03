@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 import RealmSwift
 
-struct User {
+class User {
     var userName: String?
     var lastLogin: String?
     
@@ -18,6 +18,16 @@ struct User {
         self.userName = userName
         self.lastLogin = lastLogin
     }
+}
+
+class CurrentUser: User {
+    
+    var key: String?
+    
+    init(userName: String?, lastLogin: String?) {
+        <#code#>
+    }
+    
 }
 
 class AllUsers {

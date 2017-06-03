@@ -40,4 +40,35 @@ class SwotseApi {
         }
     }
     
+    
+    func loginUserWith(username: String, password: String, token: String, giveData: @escaping (String?) -> Void) -> Void {
+        
+        let loginUrl = "login/"
+        let urlForRequest = apiSkeletonUrl + loginUrl
+        
+        let parameters: Parameters = [
+            "username": username,
+            "password": password,
+            "token": token
+        ]
+        
+        Alamofire.request(urlForRequest, method: .post, parameters: parameters).validate().responseJSON { response in
+            
+            switch response.result {
+                
+            case .success:
+                let data = response.result.value!
+                
+                print(data)
+                
+                //giveData(allUsers)
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription, urlForRequest)
+                giveData(nil)
+            }
+        }
+    }
+    
+    
 }
