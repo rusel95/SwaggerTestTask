@@ -8,15 +8,26 @@
 
 import Foundation
 import SwiftyJSON
-import RealmSwift
 
-struct User {
+class User {
     var userName: String?
     var lastLogin: String?
     
     init(userName: String?, lastLogin: String?) {
         self.userName = userName
         self.lastLogin = lastLogin
+    }
+}
+
+class CurrentUser {
+    
+    var data: User?
+    var key: String?
+    
+    init(userName: String?, response: Any) {
+        data = User(userName: userName, lastLogin: nil)
+        let json = JSON(response)
+        self.key = json["key"].string
     }
 }
 
