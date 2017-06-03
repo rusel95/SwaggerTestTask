@@ -22,7 +22,7 @@ class SwotseApi {
         let allUsersUrl = "allUsers/"
         let urlForRequest = apiSkeletonUrl + allUsersUrl
         
-        Alamofire.request(urlForRequest).responseJSON { response in
+        Alamofire.request(urlForRequest).validate().responseJSON { response in
             
             switch response.result {
                 
@@ -34,11 +34,10 @@ class SwotseApi {
                 giveData(allUsers)
                 
             case .failure(let error):
-                print(error.localizedDescription, urlForRequest)
+                debugPrint(error.localizedDescription, urlForRequest)
                 giveData(nil)
             }
         }
-        
     }
     
 }
