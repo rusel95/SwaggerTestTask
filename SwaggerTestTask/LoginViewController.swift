@@ -245,8 +245,8 @@ extension LoginViewController {
             
             switch token {
             case "Email already in use"? :
-                //need alert about mistake
-                print( UserDefaults.standard.value(forKey: "token") )
+                //need alert about already registered user
+                print("Email already in use alert")
                 break
             case nil:
                 //some alert
