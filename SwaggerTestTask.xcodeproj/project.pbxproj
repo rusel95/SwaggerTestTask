@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6D926F0256DA76950969A119 /* Pods_SwaggerTestTask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472FB650A2769791C954C15C /* Pods_SwaggerTestTask.framework */; };
+		840601BF1EE2D356000DF39A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840601BE1EE2D356000DF39A /* LoginViewController.swift */; };
 		849C20321EE1A05500866D1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C20311EE1A05500866D1B /* AppDelegate.swift */; };
 		849C20371EE1A05500866D1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849C20351EE1A05500866D1B /* Main.storyboard */; };
 		849C20391EE1A05500866D1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 849C20381EE1A05500866D1B /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		472FB650A2769791C954C15C /* Pods_SwaggerTestTask.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwaggerTestTask.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		748FA1CAC81958F78C38C032 /* Pods-SwaggerTestTask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwaggerTestTask.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwaggerTestTask/Pods-SwaggerTestTask.debug.xcconfig"; sourceTree = "<group>"; };
+		840601BE1EE2D356000DF39A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		849C202E1EE1A05500866D1B /* SwaggerTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwaggerTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849C20311EE1A05500866D1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		849C20361EE1A05500866D1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		84BCD9741EE1A40800B80197 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				840601BE1EE2D356000DF39A /* LoginViewController.swift */,
 				84BCD9751EE1A5BE00B80197 /* AllUsersTableViewController.swift */,
 			);
 			name = Controllers;
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840601BF1EE2D356000DF39A /* LoginViewController.swift in Sources */,
 				84BCD9791EE1E00900B80197 /* User.swift in Sources */,
 				84BCD9711EE1A3BC00B80197 /* Extensions.swift in Sources */,
 				84BCD96F1EE1A3A000B80197 /* HelperInstance.swift in Sources */,

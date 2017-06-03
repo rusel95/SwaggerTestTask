@@ -17,6 +17,8 @@ class AllUsersTableViewController: UITableViewController {
         
         getAllUsers()
         
+        checkIfUserIsLoggedIn()
+        
         //        SwotseApi.shared.loginUserWith(userName: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
         //            if key != nil {
         //            UserDefaults.standard.set(response, forKey: "userKey")
@@ -25,22 +27,22 @@ class AllUsersTableViewController: UITableViewController {
         //            }
         //        }
         
-        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
-            
-            switch token {
-            case "Email already in use"? :
-                //need alert about mistake
-                print( UserDefaults.standard.value(forKey: "test110")! )
-                break
-            case nil:
-                //some alert
-                print("some error")
-                break
-                
-            default:
-                UserDefaults.standard.set(token, forKey: "test110")
-            }
-        }
+//        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
+//            
+//            switch token {
+//            case "Email already in use"? :
+//                //need alert about mistake
+//                print( UserDefaults.standard.value(forKey: "token")! )
+//                break
+//            case nil:
+//                //some alert
+//                print("some error")
+//                break
+//                
+//            default:
+//                UserDefaults.standard.set(token, forKey: "token")
+//            }
+//        }
         
     }
     
@@ -66,6 +68,19 @@ class AllUsersTableViewController: UITableViewController {
 
 //MARK: my functions
 extension AllUsersTableViewController {
+    
+    func checkIfUserIsLoggedIn() {
+        if UserDefaults.standard.value(forKey: "token") == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
+            let uid = FIRAuth.auth()?.currentUser?.uid
+            FIRDatabase.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
+                
+                self.fetchUserAndSetupNavBarTitle()
+                
+            }, withCancel: nil)
+        }
+    }
     
     func getAllUsers() {
         SwotseApi.shared.getAllUsers() { response in

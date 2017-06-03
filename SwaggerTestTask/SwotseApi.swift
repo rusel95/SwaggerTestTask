@@ -99,4 +99,8 @@ class SwotseApi {
         }
     }
     
+    func logOut() {
+        UserDefaults.standard.removeObject(forKey: "userKey")
+    }
+    
 }
