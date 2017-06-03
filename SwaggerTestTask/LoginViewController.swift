@@ -10,7 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    fileprivate let backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
+    let backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
+    let buttonColor = UIColor.rgb(r: 88, g: 126, b: 57)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,37 +27,6 @@ class LoginViewController: UIViewController {
         setupLoginRegisterButton()
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
-    }
-    
-    //MARK: my functions
-
-    func login() {
-        SwotseApi.shared.loginUserWith(userName: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
-            if key != nil {
-                UserDefaults.standard.set(key, forKey: "userKey")
-            } else {
-                //some alert needed
-            }
-        }
-    }
-    
-    func register() {
-        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
-            
-            switch token {
-            case "Email already in use"? :
-                //need alert about mistake
-                print( UserDefaults.standard.value(forKey: "token")! )
-                break
-            case nil:
-                //some alert
-                print("some error")
-                break
-                
-            default:
-                UserDefaults.standard.set(token, forKey: "token")
-            }
-        }
     }
     
     //MARK: View implementation
@@ -95,7 +65,7 @@ class LoginViewController: UIViewController {
     
     let nameSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rgb(r: 220, g: 220, b: 220)
+        view.backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -109,7 +79,7 @@ class LoginViewController: UIViewController {
     
     let emailSeparatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rgb(r: 220, g: 220, b: 220)
+        view.backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -139,7 +109,7 @@ class LoginViewController: UIViewController {
         sc.tintColor = UIColor.white
         sc.selectedSegmentIndex = 1
         sc.addTarget(self, action: #selector(handleLoginRegisterChange), for: .valueChanged)
-        sc.layer.cornerRadius = 30
+        sc.layer.cornerRadius = 15
         return sc
     }()
     
@@ -154,14 +124,13 @@ class LoginViewController: UIViewController {
         nameTextFieldHeightAnchor?.isActive = false
         nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3)
         nameTextFieldHeightAnchor?.isActive = true
+        nameTextField.isHidden = loginRegisterSegmentedControl.selectedSegmentIndex == 0
+        nameSeparatorView.isHidden = loginRegisterSegmentedControl.selectedSegmentIndex == 0
         
         //change height of emailTextField
         emailTextFieldHeightAnchor?.isActive = false
         emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
         emailTextFieldHeightAnchor?.isActive = true
-        
-        emailTextField.isHidden = loginRegisterSegmentedControl.selectedSegmentIndex == 0
-        emailSeparatorView.isHidden = loginRegisterSegmentedControl.selectedSegmentIndex == 0
         
         //change height of passwordTextField
         passwordTextFieldHeightAnchor?.isActive = false
@@ -197,25 +166,9 @@ class LoginViewController: UIViewController {
         inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
         inputsContainerViewHeightAnchor?.isActive = true
         
-        //email field
-        inputsContainerView.addSubview(emailTextField)
-        emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
-        emailTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
-        emailTextFieldHeightAnchor?.isActive = true
-        
-        inputsContainerView.addSubview(emailSeparatorView)
-        emailSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
-        emailSeparatorView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
-        emailSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        emailSeparatorView.backgroundColor = backgroundColor
-        
-        //name field
         inputsContainerView.addSubview(nameTextField)
         nameTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        nameTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
+        nameTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         nameTextFieldHeightAnchor?.isActive = true
@@ -225,12 +178,23 @@ class LoginViewController: UIViewController {
         nameSeparatorView.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
         nameSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         nameSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        nameSeparatorView.backgroundColor = backgroundColor
         
-        //password field
+        inputsContainerView.addSubview(emailTextField)
+        emailTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
+        emailTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
+        emailTextFieldHeightAnchor?.isActive = true
+        
+        inputsContainerView.addSubview(emailSeparatorView)
+        emailSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        emailSeparatorView.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
+        emailSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        emailSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
         inputsContainerView.addSubview(passwordTextField)
         passwordTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
-        passwordTextField.bottomAnchor.constraint(equalTo: inputsContainerView.bottomAnchor).isActive = true
+        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 1/3)
         passwordTextFieldHeightAnchor?.isActive = true
@@ -251,4 +215,37 @@ class LoginViewController: UIViewController {
     
 }
 
+//MARK: my functions
 
+extension LoginViewController {
+    
+    func login() {
+        SwotseApi.shared.loginUserWith(userName: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
+            if key != nil {
+                UserDefaults.standard.set(key, forKey: "userKey")
+            } else {
+                //some alert needed
+            }
+        }
+    }
+    
+    func register() {
+        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
+            
+            switch token {
+            case "Email already in use"? :
+                //need alert about mistake
+                print( UserDefaults.standard.value(forKey: "token")! )
+                break
+            case nil:
+                //some alert
+                print("some error")
+                break
+                
+            default:
+                UserDefaults.standard.set(token, forKey: "token")
+            }
+        }
+    }
+    
+}
