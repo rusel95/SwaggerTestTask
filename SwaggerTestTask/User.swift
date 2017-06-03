@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftyJSON
-import RealmSwift
 
 class User {
     var userName: String?
@@ -20,14 +19,16 @@ class User {
     }
 }
 
-class CurrentUser: User {
+class CurrentUser {
     
+    var data: User?
     var key: String?
     
-    init(userName: String?, lastLogin: String?) {
-        <#code#>
+    init(userName: String?, response: Any) {
+        data = User(userName: userName, lastLogin: nil)
+        let json = JSON(response)
+        self.key = json["key"].string
     }
-    
 }
 
 class AllUsers {

@@ -40,14 +40,13 @@ class SwotseApi {
         }
     }
     
-    
-    func loginUserWith(username: String, password: String, token: String, giveData: @escaping (String?) -> Void) -> Void {
+    func loginUserWith(userName: String, password: String, token: String, giveData: @escaping (CurrentUser?) -> Void) -> Void {
         
         let loginUrl = "login/"
         let urlForRequest = apiSkeletonUrl + loginUrl
         
         let parameters: Parameters = [
-            "username": username,
+            "username": userName,
             "password": password,
             "token": token
         ]
@@ -58,10 +57,8 @@ class SwotseApi {
                 
             case .success:
                 let data = response.result.value!
-                
-                print(data)
-                
-                //giveData(allUsers)
+                let currentUser = CurrentUser(userName: userName, response: data)
+                giveData(currentUser)
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription, urlForRequest)
@@ -70,13 +67,13 @@ class SwotseApi {
         }
     }
     
-    func registerUserWith(username: String, password: String, email: String, giveData: @escaping (String?) -> Void) -> Void {
+    func registerUserWith(userName: String, password: String, email: String, giveData: @escaping (String?) -> Void) -> Void {
         
         let registrationUrl = "registration/"
         let urlForRequest = apiSkeletonUrl + registrationUrl
         
         let parameters: Parameters = [
-            "username": username,
+            "username": userName,
             "password": password,
             "email": email
         ]
@@ -87,10 +84,13 @@ class SwotseApi {
                 
             case .success:
                 let data = response.result.value!
-                
-                print(data)
-                
-                //giveData(allUsers)
+                var token = String()
+                if let message = (data as? NSDictionary)?["message"] as? String {
+                    token = message
+                } else if let tempToken = (data as? NSDictionary)?["token"] as? String {
+                    token = tempToken
+                }
+                giveData(token)
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription, urlForRequest)
@@ -98,6 +98,5 @@ class SwotseApi {
             }
         }
     }
-    
     
 }
