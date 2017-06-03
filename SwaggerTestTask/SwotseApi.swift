@@ -40,7 +40,7 @@ class SwotseApi {
         }
     }
     
-    func loginUserWith(userName: String, password: String, token: String, giveData: @escaping (CurrentUser?) -> Void) -> Void {
+    func loginUserWith(userName: String, password: String, token: String, giveData: @escaping (String?) -> Void) -> Void {
         
         let loginUrl = "login/"
         let urlForRequest = apiSkeletonUrl + loginUrl
@@ -57,8 +57,8 @@ class SwotseApi {
                 
             case .success:
                 let data = response.result.value!
-                let currentUser = CurrentUser(userName: userName, response: data)
-                giveData(currentUser)
+                let key = (data as? NSDictionary)?["key"] as? String
+                giveData(key)
                 
             case .failure(let error):
                 debugPrint(error.localizedDescription, urlForRequest)
@@ -101,6 +101,7 @@ class SwotseApi {
     
     func logOut() {
         UserDefaults.standard.removeObject(forKey: "userKey")
+        UserDefaults.standard.removeObject(forKey: "userName")
     }
     
 }

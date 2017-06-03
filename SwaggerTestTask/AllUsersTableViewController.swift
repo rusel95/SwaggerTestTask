@@ -12,14 +12,18 @@ class AllUsersTableViewController: UITableViewController {
     
     fileprivate var allUsers = [User]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    //the very early check if user logged
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         checkIfUserIsLoggedIn()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "Exit"), style: .plain, target: self, action: #selector(handleLogout) )
+        setNavBar()
     }
-
+    
+    func setNavBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "Exit"), style: .plain, target: self, action: #selector(handleLogout) )
+        self.navigationItem.title = UserDefaults.standard.value(forKey: "userName") as! String?
+    }
     
     // MARK: - Table view data source
     
@@ -44,26 +48,28 @@ class AllUsersTableViewController: UITableViewController {
 extension AllUsersTableViewController {
     
     func checkIfUserIsLoggedIn() {
-//        if UserDefaults.standard.value(forKey: "userKey") == nil {
-//            perform(#selector(handleLogout), with: nil, afterDelay: 0)
-//        } else {
+        if UserDefaults.standard.value(forKey: "userKey") == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
             getAllUsers()
-//        }
+        }
     }
     
     func handleLogout() {
-        
-//        let loginController = LoginViewController()
-//        
-//        //loginController.messagesController = self
-//        
-//        present(loginController, animated: true, completion: nil)
+        SwotseApi.shared.logOut()
+        let loginViewController = LoginViewController()
+        loginViewController.allUsersTableViewController = self
+        present(loginViewController, animated: true, completion: nil)
     }
     
     func getAllUsers() {
-        SwotseApi.shared.getAllUsers() { response in
-            self.allUsers = response!
-            self.tableView.reloadData()
+        SwotseApi.shared.getAllUsers() { allUsers in
+            if allUsers != nil {
+                self.allUsers = allUsers!
+                self.tableView.reloadData()
+            } else {
+                print("some shit mistake while downloading")
+            }
         }
     }
     

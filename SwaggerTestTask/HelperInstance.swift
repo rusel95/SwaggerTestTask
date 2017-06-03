@@ -14,6 +14,8 @@ class HelperInstance {
     static let shared = HelperInstance()
     private init () { }
     
+    var token = "17082b0c4ad99528891147c310fa325cb1e38f19"
+    
     func createAlert(title: String, message: String, currentView: UIViewController) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
