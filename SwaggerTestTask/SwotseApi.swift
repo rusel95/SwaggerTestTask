@@ -70,5 +70,34 @@ class SwotseApi {
         }
     }
     
+    func registerUserWith(username: String, password: String, email: String, giveData: @escaping (String?) -> Void) -> Void {
+        
+        let registrationUrl = "registration/"
+        let urlForRequest = apiSkeletonUrl + registrationUrl
+        
+        let parameters: Parameters = [
+            "username": username,
+            "password": password,
+            "email": email
+        ]
+        
+        Alamofire.request(urlForRequest, method: .post, parameters: parameters).validate().responseJSON { response in
+            
+            switch response.result {
+                
+            case .success:
+                let data = response.result.value!
+                
+                print(data)
+                
+                //giveData(allUsers)
+                
+            case .failure(let error):
+                debugPrint(error.localizedDescription, urlForRequest)
+                giveData(nil)
+            }
+        }
+    }
+    
     
 }
