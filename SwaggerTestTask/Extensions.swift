@@ -6,17 +6,13 @@
 //  Copyright © 2017 rusel95. All rights reserved.
 //
 
-import Foundation
-
-//
-//  Extensions.swift
-//  Vidvaga
-//
-//  Created by Admin on 30.05.17.
-//  Copyright © 2017 rusel95. All rights reserved.
-//
-
 import UIKit
+
+extension UIColor {
+    static func rgb(r: CGFloat, g: CGFloat, b: CGFloat) -> UIColor {
+        return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
+    }
+}
 
 extension Date {
     

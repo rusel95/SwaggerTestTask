@@ -44,20 +44,20 @@ class AllUsersTableViewController: UITableViewController {
 extension AllUsersTableViewController {
     
     func checkIfUserIsLoggedIn() {
-//        if UserDefaults.standard.value(forKey: "userKey") == nil {
-//            perform(#selector(handleLogout), with: nil, afterDelay: 0)
-//        } else {
+        if UserDefaults.standard.value(forKey: "userKey") == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
             getAllUsers()
-//        }
+        }
     }
     
     func handleLogout() {
         
-//        let loginController = LoginViewController()
-//        
-//        //loginController.messagesController = self
-//        
-//        present(loginController, animated: true, completion: nil)
+        let loginViewController = LoginViewController()
+        
+        loginViewController.allUsersTableViewController = self
+        
+        present(loginViewController, animated: true, completion: nil)
     }
     
     func getAllUsers() {
