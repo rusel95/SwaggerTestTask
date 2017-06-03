@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
         
-        button.addTarget(self, action: #selector(handleLoginRegisterChange), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         return button
     }()
     
@@ -112,6 +112,14 @@ class LoginViewController: UIViewController {
         sc.layer.cornerRadius = 15
         return sc
     }()
+    
+    func handleLoginRegister() {
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            handleLogin()
+        } else {
+            handleRegister()
+        }
+    }
     
     func handleLoginRegisterChange(){
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
@@ -219,23 +227,26 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     
-    func login() {
-        SwotseApi.shared.loginUserWith(userName: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
+    func handleLogin() {
+        
+        SwotseApi.shared.loginUserWith(userName: nameTextField.text!, password: passwordTextField.text!, token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
             if key != nil {
-                UserDefaults.standard.set(key, forKey: "userKey")
+//                UserDefaults.standard.set(key, forKey: "userKey")
+                
+                self.dismiss(animated: true, completion: nil)
             } else {
                 //some alert needed
             }
         }
     }
     
-    func register() {
-        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
+    func handleRegister() {
+        SwotseApi.shared.registerUserWith(userName: nameTextField.text!, password: passwordTextField.text!, email: emailTextField.text!) { token in
             
             switch token {
             case "Email already in use"? :
                 //need alert about mistake
-                print( UserDefaults.standard.value(forKey: "token")! )
+                print( UserDefaults.standard.value(forKey: "token") )
                 break
             case nil:
                 //some alert
@@ -244,6 +255,7 @@ extension LoginViewController {
                 
             default:
                 UserDefaults.standard.set(token, forKey: "token")
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
