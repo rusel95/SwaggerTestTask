@@ -235,7 +235,7 @@ extension LoginViewController {
         
         let userName = nameTextField.text!
         let password = passwordTextField.text!
-        SwotseApi.shared.loginUserWith(userName: userName, password: password, token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
+        SwotseApi.shared.loginUserWith(userName: userName, password: password, token: HelperInstance.shared.token ) { key in
             if key != nil {
                 UserDefaults.standard.set(userName, forKey: "userName")
                 UserDefaults.standard.set(key, forKey: "userKey")
