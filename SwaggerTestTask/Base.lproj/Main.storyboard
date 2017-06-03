@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-863" y="-168"/>
         </scene>
-        <!--all users list-->
+        <!--All Users Table View Controller-->
         <scene sceneID="cnW-C8-Xqr">
             <objects>
                 <tableViewController id="Sb6-JM-Wtf" customClass="AllUsersTableViewController" customModule="SwaggerTestTask" customModuleProvider="target" sceneMemberID="viewController">
@@ -59,7 +59,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.5217365026473999" green="0.73176747560501099" blue="0.24840709567070007" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </tableViewCell>
                         </prototypes>
@@ -68,7 +68,7 @@
                             <outlet property="delegate" destination="Sb6-JM-Wtf" id="AIN-nP-waY"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="all users list" id="pPO-1t-Aab"/>
+                    <navigationItem key="navigationItem" id="pPO-1t-Aab"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGo-1Z-OxJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

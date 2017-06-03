@@ -21,14 +21,11 @@ class User {
 
 class CurrentUser {
     
+    static let shared = CurrentUser()
+    private init() { }
+    
     var data: User?
     var key: String?
-    
-    init(userName: String?, response: Any) {
-        data = User(userName: userName, lastLogin: nil)
-        let json = JSON(response)
-        self.key = json["key"].string
-    }
 }
 
 class AllUsers {

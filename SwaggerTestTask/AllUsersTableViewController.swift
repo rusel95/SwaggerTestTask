@@ -12,14 +12,18 @@ class AllUsersTableViewController: UITableViewController {
     
     fileprivate var allUsers = [User]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    //the very early check if user logged
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         checkIfUserIsLoggedIn()
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "Exit"), style: .plain, target: self, action: #selector(handleLogout) )
+        setNavBar()
     }
-
+    
+    func setNavBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "Exit"), style: .plain, target: self, action: #selector(handleLogout) )
+        self.navigationItem.title = UserDefaults.standard.value(forKey: "userName") as! String?
+    }
     
     // MARK: - Table view data source
     
@@ -52,18 +56,20 @@ extension AllUsersTableViewController {
     }
     
     func handleLogout() {
-        
+        SwotseApi.shared.logOut()
         let loginViewController = LoginViewController()
-        
         loginViewController.allUsersTableViewController = self
-        
         present(loginViewController, animated: true, completion: nil)
     }
     
     func getAllUsers() {
-        SwotseApi.shared.getAllUsers() { response in
-            self.allUsers = response!
-            self.tableView.reloadData()
+        SwotseApi.shared.getAllUsers() { allUsers in
+            if allUsers != nil {
+                self.allUsers = allUsers!
+                self.tableView.reloadData()
+            } else {
+                print("some shit mistake while downloading")
+            }
         }
     }
     
