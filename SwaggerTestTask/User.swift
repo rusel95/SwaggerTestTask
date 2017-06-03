@@ -29,10 +29,28 @@ class AllUsers {
     
         for userFullInfo in jsonArray {
             let tempName = userFullInfo.1["username"].string
-            let tempLastLogin = userFullInfo.1["last_login"].string
+            var tempLastLogin = userFullInfo.1["last_login"].string
+            if tempLastLogin != nil {
+                tempLastLogin = getProperTime(from: tempLastLogin!)
+            }
+            
             let tempUser = User(userName: tempName, lastLogin: tempLastLogin)
             array.append(tempUser)
         }
+    }
+    
+    private func getProperTime(from time: String) -> String {
+        
+        var temp = String()
+        let index = time.index(time.startIndex, offsetBy: 16)
+        let iNeededDate = time.substring(to: index)
+        let formatter = DateFormatter.init()
+        formatter.timeZone = TimeZone.ReferenceType.default
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        let date = formatter.date(from: iNeededDate)
+        temp = DateFormatter.localizedString(from: date!, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
+        
+        return temp
     }
     
 }
