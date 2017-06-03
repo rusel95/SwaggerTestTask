@@ -9,27 +9,45 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
+    
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+//MARK: my functions
+extension LoginViewController {
+    
+    func login() {
+        SwotseApi.shared.loginUserWith(userName: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
+            if key != nil {
+                UserDefaults.standard.set(key, forKey: "userKey")
+            } else {
+                //some alert needed
+            }
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func register() {
+        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
+            
+            switch token {
+            case "Email already in use"? :
+                //need alert about mistake
+                print( UserDefaults.standard.value(forKey: "token")! )
+                break
+            case nil:
+                //some alert
+                print("some error")
+                break
+                
+            default:
+                UserDefaults.standard.set(token, forKey: "token")
+            }
+        }
     }
-    */
-
+    
 }

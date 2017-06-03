@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Sb6-JM-Wtf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5A2-8y-yeg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,7 +9,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--All Users Table View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="E1b-8L-G0D">
+            <objects>
+                <navigationController id="5A2-8y-yeg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mN0-Gd-nhT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Sb6-JM-Wtf" kind="relationship" relationship="rootViewController" id="Z5j-6i-XbY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F7P-4y-Qp2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-863" y="-168"/>
+        </scene>
+        <!--all users list-->
         <scene sceneID="cnW-C8-Xqr">
             <objects>
                 <tableViewController id="Sb6-JM-Wtf" customClass="AllUsersTableViewController" customModule="SwaggerTestTask" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,10 +67,11 @@
                             <outlet property="delegate" destination="Sb6-JM-Wtf" id="AIN-nP-waY"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="all users list" id="pPO-1t-Aab"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGo-1Z-OxJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20" y="-167"/>
+            <point key="canvasLocation" x="-58" y="-168"/>
         </scene>
     </scenes>
 </document>

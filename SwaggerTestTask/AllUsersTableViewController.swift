@@ -15,37 +15,11 @@ class AllUsersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getAllUsers()
-        
         checkIfUserIsLoggedIn()
         
-        //        SwotseApi.shared.loginUserWith(userName: "test103", password: "111111", token: "17082b0c4ad99528891147c310fa325cb1e38f19") { key in
-        //            if key != nil {
-        //            UserDefaults.standard.set(response, forKey: "userKey")
-        //            } else {
-        //                //some alert needed
-        //            }
-        //        }
-        
-//        SwotseApi.shared.registerUserWith(userName: "test110", password: "111111", email: "test110@gmail.com") { token in
-//            
-//            switch token {
-//            case "Email already in use"? :
-//                //need alert about mistake
-//                print( UserDefaults.standard.value(forKey: "token")! )
-//                break
-//            case nil:
-//                //some alert
-//                print("some error")
-//                break
-//                
-//            default:
-//                UserDefaults.standard.set(token, forKey: "token")
-//            }
-//        }
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "Exit"), style: .plain, target: self, action: #selector(handleLogout) )
     }
-    
+
     
     // MARK: - Table view data source
     
@@ -70,16 +44,20 @@ class AllUsersTableViewController: UITableViewController {
 extension AllUsersTableViewController {
     
     func checkIfUserIsLoggedIn() {
-        if UserDefaults.standard.value(forKey: "token") == nil {
-            perform(#selector(handleLogout), with: nil, afterDelay: 0)
-        } else {
-            let uid = FIRAuth.auth()?.currentUser?.uid
-            FIRDatabase.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
-                
-                self.fetchUserAndSetupNavBarTitle()
-                
-            }, withCancel: nil)
-        }
+//        if UserDefaults.standard.value(forKey: "userKey") == nil {
+//            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+//        } else {
+            getAllUsers()
+//        }
+    }
+    
+    func handleLogout() {
+        
+//        let loginController = LoginViewController()
+//        
+//        //loginController.messagesController = self
+//        
+//        present(loginController, animated: true, completion: nil)
     }
     
     func getAllUsers() {
