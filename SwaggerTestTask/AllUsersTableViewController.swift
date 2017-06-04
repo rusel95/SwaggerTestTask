@@ -51,7 +51,11 @@ extension AllUsersTableViewController {
         if UserDefaults.standard.value(forKey: "userKey") == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            getAllUsers()
+            if !HelperInstance.shared.isInternetAvailable() {
+                getAllUsers()
+            } else {
+                HelperInstance.shared.createAlert(title: "OoOops", message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+            }
         }
     }
     

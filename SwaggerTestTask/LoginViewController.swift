@@ -13,6 +13,10 @@ class LoginViewController: UIViewController {
     let backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
     let buttonColor = UIColor.rgb(r: 88, g: 126, b: 57)
     
+    let userExistErrorMessage = "A user with this email already exists! Please, try Login or register with another email.."
+    let someErrorMessage = "Sorry, but looks like some unknown error exist.. Please, try again later"
+    let emailInUse = "Email already in use"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -114,10 +118,14 @@ class LoginViewController: UIViewController {
     }()
     
     func handleLoginRegister() {
-        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
-            handleLogin()
+        if !HelperInstance.shared.isInternetAvailable() {
+            if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+                handleLogin()
+            } else {
+                handleRegister()
+            }
         } else {
-            handleRegister()
+            HelperInstance.shared.createAlert(title: "OoOops", message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
         }
     }
     
@@ -232,7 +240,6 @@ class LoginViewController: UIViewController {
 extension LoginViewController {
     
     func handleLogin() {
-        
         let userName = nameTextField.text!
         let password = passwordTextField.text!
         SwotseApi.shared.loginUserWith(userName: userName, password: password, token: HelperInstance.shared.token ) { key in
@@ -248,19 +255,19 @@ extension LoginViewController {
     }
     
     func handleRegister() {
-        SwotseApi.shared.registerUserWith(userName: nameTextField.text!, password: passwordTextField.text!, email: emailTextField.text!) { token in
+        let inputedUserName = nameTextField.text!
+        SwotseApi.shared.registerUserWith(userName: inputedUserName, password: passwordTextField.text!, email: emailTextField.text!) { token in
             
             switch token {
-            case "Email already in use"? :
-                //need alert about already registered user
-                print("Email already in use alert")
+            case self.emailInUse? :
+                HelperInstance.shared.createAlert(title: "OoOops", message: self.userExistErrorMessage, currentView: self)
                 break
             case nil:
-                //some alert
-                print("some error")
+                HelperInstance.shared.createAlert(title: "OoOops", message: self.someErrorMessage, currentView: self)
                 break
                 
             default:
+                UserDefaults.standard.set(inputedUserName, forKey: "userName")
                 UserDefaults.standard.set(token, forKey: "token")
                 self.dismiss(animated: true, completion: nil)
             }

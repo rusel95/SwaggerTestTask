@@ -19,15 +19,6 @@ class User {
     }
 }
 
-class CurrentUser {
-    
-    static let shared = CurrentUser()
-    private init() { }
-    
-    var data: User?
-    var key: String?
-}
-
 class AllUsers {
     
     var array = [User]()

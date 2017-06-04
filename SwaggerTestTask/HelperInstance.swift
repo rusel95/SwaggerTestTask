@@ -14,7 +14,9 @@ class HelperInstance {
     static let shared = HelperInstance()
     private init () { }
     
-    var token = "17082b0c4ad99528891147c310fa325cb1e38f19"
+    let token = "17082b0c4ad99528891147c310fa325cb1e38f19"
+    let internetConnectionErrorMessage = "Looks like some trouble with connection exists.. Please, check your internet connection and try again!"
+    
     
     func createAlert(title: String, message: String, currentView: UIViewController) {
         
