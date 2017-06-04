@@ -10,8 +10,12 @@ import UIKit
 
 class LoginView: UIView {
     
-    override init(frame: CGRect) {
+    var currentViewController = UIViewController()
+    
+    init(frame: CGRect, viewController: UIViewController) {
         super.init(frame: frame)
+        
+        currentViewController = viewController
         
         self.addSubview(inputsContainerView)
         self.addSubview(loginRegisterButton)
@@ -207,7 +211,7 @@ class LoginView: UIView {
         loginRegisterButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         loginRegisterButton.centerYAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 36).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-//        loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        loginRegisterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     var preferredStatusBarStyle: UIStatusBarStyle {
@@ -225,7 +229,7 @@ extension LoginView {
                 handleRegister()
             }
         } else {
-//            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self.currentViewController)
         }
     }
     
@@ -234,17 +238,17 @@ extension LoginView {
         let enteredPassword = passwordTextField.text!
         
         if enteredUserName == "" || enteredPassword == "" {
-//            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self.currentViewController)
         } else if enteredPassword.characters.count < 6 {
-//            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self)
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self.currentViewController)
         } else {
             SwotseApi.shared.loginUserWith(userName: enteredUserName, password: enteredPassword, token: HelperInstance.shared.standartToken ) { key in
                 if key != nil {
                     UserDefaults.standard.set(enteredUserName, forKey: HelperInstance.shared.userNameUserDefaults)
                     UserDefaults.standard.set(key, forKey: HelperInstance.shared.keyUserDefaults)
-//                    self.dismiss(animated: true, completion: nil)
+                    self.currentViewController.dismiss(animated: true, completion: nil)
                 } else {
-//                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self.currentViewController)
                 }
             }
         }
@@ -256,17 +260,17 @@ extension LoginView {
         let enteredEmail = emailTextField.text!
         
         if enteredUserName == "" || enteredPassword == "" || enteredEmail == "" {
-//            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self.currentViewController)
         } else if enteredPassword.characters.count < 6 {
-//            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self)
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self.currentViewController)
         } else {
             SwotseApi.shared.registerUserWith(userName: enteredUserName, password: enteredPassword, email: enteredEmail) { token in
                 switch token {
                 case HelperInstance.shared.emailInUse? :
-//                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emailInUse, currentView: self)
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emailInUse, currentView: self.currentViewController)
                     break
                 case nil:
-//                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self.currentViewController)
                     break
                     
                 default:

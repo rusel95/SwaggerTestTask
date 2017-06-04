@@ -19,19 +19,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginView = LoginView( frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height) )
+        loginView = LoginView( frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height), viewController: self)
         view.addSubview(loginView)
         
         view.backgroundColor = backgroundColor
     }
-    
-
-    
 }
 
-//MARK: my functions
-
-extension LoginViewController {
-    
-    
-}
