@@ -31,6 +31,7 @@ class HelperInstance {
     let keyUserDefaults = "userKey"
     let tokenUserDefaults = "token"
     let userNameUserDefaults = "userName"
+    let passwordShortError = "You have entered to short password.. It should not be shorter than 6 characters!"
     
     func createAlert(title: String, message: String, currentView: UIViewController) {
         

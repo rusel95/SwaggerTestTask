@@ -241,6 +241,8 @@ extension LoginViewController {
         
         if enteredUserName == "" || enteredPassword == "" {
             HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+        } else if enteredPassword.characters.count < 6 {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self)
         } else {
             SwotseApi.shared.loginUserWith(userName: enteredUserName, password: enteredPassword, token: HelperInstance.shared.standartToken ) { key in
                 if key != nil {
@@ -261,6 +263,8 @@ extension LoginViewController {
         
         if enteredUserName == "" || enteredPassword == "" || enteredEmail == "" {
             HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+        } else if enteredPassword.characters.count < 6 {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self)
         } else {
             SwotseApi.shared.registerUserWith(userName: enteredUserName, password: enteredPassword, email: enteredEmail) { token in
                 switch token {
