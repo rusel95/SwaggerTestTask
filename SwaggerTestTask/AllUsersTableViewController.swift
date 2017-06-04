@@ -70,9 +70,11 @@ extension AllUsersTableViewController {
     
     func handleLogout() {
         SwotseApi.shared.logOut()
+        RealmCRUD.shared.deleteAllUsers()
+        
         let loginViewController = LoginViewController()
         loginViewController.allUsersTableViewController = self
-        present(loginViewController, animated: true, completion: nil)
+        present(loginViewController, animated: false, completion: nil)
     }
     
     func getAllUsers() {

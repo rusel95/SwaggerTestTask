@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol LoginViewDelegate {
+    func handleLoginRegister()
+}
+
 class LoginView: UIView {
+    
+    var delegate: LoginViewDelegate?
     
     var currentViewController = UIViewController()
     
@@ -53,10 +59,13 @@ class LoginView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
         
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
         return button
     }()
     
+    func handleButtonTap() {
+        self.delegate?.handleLoginRegister()
+    }
     
     let nameTextField: UITextField = {
         let tf = UITextField()
@@ -220,64 +229,3 @@ class LoginView: UIView {
     
 }
 
-extension LoginView {
-    func handleLoginRegister() {
-        if HelperInstance.shared.isInternetAvailable() {
-            if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
-                handleLogin()
-            } else {
-                handleRegister()
-            }
-        } else {
-            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self.currentViewController)
-        }
-    }
-    
-    func handleLogin() {
-        let enteredUserName = nameTextField.text!
-        let enteredPassword = passwordTextField.text!
-        
-        if enteredUserName == "" || enteredPassword == "" {
-            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self.currentViewController)
-        } else if enteredPassword.characters.count < 6 {
-            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self.currentViewController)
-        } else {
-            SwotseApi.shared.loginUserWith(userName: enteredUserName, password: enteredPassword, token: HelperInstance.shared.standartToken ) { key in
-                if key != nil {
-                    UserDefaults.standard.set(enteredUserName, forKey: HelperInstance.shared.userNameUserDefaults)
-                    UserDefaults.standard.set(key, forKey: HelperInstance.shared.keyUserDefaults)
-                    self.currentViewController.dismiss(animated: true, completion: nil)
-                } else {
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self.currentViewController)
-                }
-            }
-        }
-    }
-    
-    func handleRegister() {
-        let enteredUserName = nameTextField.text!
-        let enteredPassword = passwordTextField.text!
-        let enteredEmail = emailTextField.text!
-        
-        if enteredUserName == "" || enteredPassword == "" || enteredEmail == "" {
-            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self.currentViewController)
-        } else if enteredPassword.characters.count < 6 {
-            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self.currentViewController)
-        } else {
-            SwotseApi.shared.registerUserWith(userName: enteredUserName, password: enteredPassword, email: enteredEmail) { token in
-                switch token {
-                case HelperInstance.shared.emailInUse? :
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emailInUse, currentView: self.currentViewController)
-                    break
-                case nil:
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self.currentViewController)
-                    break
-                    
-                default:
-                    UserDefaults.standard.set(token, forKey: HelperInstance.shared.tokenUserDefaults)
-                    self.handleLogin()
-                }
-            }
-        }
-    }
-}

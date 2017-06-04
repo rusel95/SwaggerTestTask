@@ -102,7 +102,6 @@ class SwotseApi {
     func logOut() {
         UserDefaults.standard.removeObject(forKey: "userKey")
         UserDefaults.standard.removeObject(forKey: "userName")
-        RealmCRUD.shared.deleteAllUsers()
     }
     
 }
