@@ -11,6 +11,7 @@
 		840026281EE481D100EC8F38 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840026271EE481D100EC8F38 /* LoginView.swift */; };
 		8400262A1EE48CFB00EC8F38 /* RealmCRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840026291EE48CFB00EC8F38 /* RealmCRUD.swift */; };
 		840601BF1EE2D356000DF39A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840601BE1EE2D356000DF39A /* LoginViewController.swift */; };
+		840C496C1EE4AAA7000DEF96 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840C496B1EE4AAA7000DEF96 /* User.swift */; };
 		849C20321EE1A05500866D1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C20311EE1A05500866D1B /* AppDelegate.swift */; };
 		849C20371EE1A05500866D1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849C20351EE1A05500866D1B /* Main.storyboard */; };
 		849C20391EE1A05500866D1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 849C20381EE1A05500866D1B /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		840026271EE481D100EC8F38 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		840026291EE48CFB00EC8F38 /* RealmCRUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCRUD.swift; sourceTree = "<group>"; };
 		840601BE1EE2D356000DF39A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		840C496B1EE4AAA7000DEF96 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		849C202E1EE1A05500866D1B /* SwaggerTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwaggerTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849C20311EE1A05500866D1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		849C20361EE1A05500866D1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		84BCD9721EE1A3F700B80197 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				840C496B1EE4AAA7000DEF96 /* User.swift */,
 				84BCD9781EE1E00900B80197 /* AllUsers.swift */,
 			);
 			name = Models;
@@ -281,6 +284,7 @@
 				8400262A1EE48CFB00EC8F38 /* RealmCRUD.swift in Sources */,
 				849C20321EE1A05500866D1B /* AppDelegate.swift in Sources */,
 				840026281EE481D100EC8F38 /* LoginView.swift in Sources */,
+				840C496C1EE4AAA7000DEF96 /* User.swift in Sources */,
 				84BCD96C1EE1A37500B80197 /* SwotseApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

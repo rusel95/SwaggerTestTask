@@ -8,18 +8,6 @@
 
 import Foundation
 import SwiftyJSON
-import RealmSwift
-
-class User: Object {
-    dynamic var userName = String()
-    dynamic var lastLogin = String()
-    
-    func myInit(userName: String?, lastLogin: String?) -> Object {
-        self.userName = userName!
-        self.lastLogin = lastLogin ?? ""
-        return (self)
-    }
-}
 
 class AllUsers {
     
