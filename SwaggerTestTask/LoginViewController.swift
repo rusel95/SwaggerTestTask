@@ -13,10 +13,6 @@ class LoginViewController: UIViewController {
     let backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
     let buttonColor = UIColor.rgb(r: 88, g: 126, b: 57)
     
-    let userExistErrorMessage = "A user with this email already exists! Please, try Login or register with another email.."
-    let someErrorMessage = "Sorry, but looks like some unknown error exist.. Please, try again later"
-    let emailInUse = "Email already in use"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -252,7 +248,7 @@ extension LoginViewController {
                     UserDefaults.standard.set(key, forKey: HelperInstance.shared.keyUserDefaults)
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: self.someErrorMessage, currentView: self)
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
                 }
             }
         }
@@ -268,11 +264,11 @@ extension LoginViewController {
         } else {
             SwotseApi.shared.registerUserWith(userName: enteredUserName, password: enteredPassword, email: enteredEmail) { token in
                 switch token {
-                case self.emailInUse? :
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: self.userExistErrorMessage, currentView: self)
+                case HelperInstance.shared.emailInUse? :
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emailInUse, currentView: self)
                     break
                 case nil:
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: self.someErrorMessage, currentView: self)
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
                     break
                     
                 default:
