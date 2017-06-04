@@ -8,14 +8,16 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-class User {
-    var userName: String?
-    var lastLogin: String?
+class User: Object {
+    dynamic var userName = String()
+    dynamic var lastLogin = String()
     
-    init(userName: String?, lastLogin: String?) {
-        self.userName = userName
-        self.lastLogin = lastLogin
+    func myInit(userName: String?, lastLogin: String?) -> Object {
+        self.userName = userName!
+        self.lastLogin = lastLogin ?? ""
+        return (self)
     }
 }
 
@@ -32,9 +34,8 @@ class AllUsers {
             if tempLastLogin != nil {
                 tempLastLogin = getProperTime(from: tempLastLogin!)
             }
-            
-            let tempUser = User(userName: tempName, lastLogin: tempLastLogin)
-            array.append(tempUser)
+            let tempUser = User().myInit(userName: tempName, lastLogin: tempLastLogin)
+            array.append(tempUser as! User)
         }
     }
     
