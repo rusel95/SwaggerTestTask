@@ -71,8 +71,7 @@
 		849C20301EE1A05500866D1B /* SwaggerTestTask */ = {
 			isa = PBXGroup;
 			children = (
-				849C20311EE1A05500866D1B /* AppDelegate.swift */,
-				84BCD9771EE1DF0F00B80197 /* Api */,
+				84BCD9771EE1DF0F00B80197 /* SingleTons */,
 				84BCD9721EE1A3F700B80197 /* Models */,
 				84BCD9731EE1A40200B80197 /* Views */,
 				84BCD9741EE1A40800B80197 /* Controllers */,
@@ -84,7 +83,6 @@
 		84BCD96D1EE1A38900B80197 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				84BCD96E1EE1A3A000B80197 /* HelperInstance.swift */,
 				84BCD9701EE1A3BC00B80197 /* Extensions.swift */,
 				849C20381EE1A05500866D1B /* Assets.xcassets */,
 				849C203A1EE1A05500866D1B /* LaunchScreen.storyboard */,
@@ -118,12 +116,14 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		84BCD9771EE1DF0F00B80197 /* Api */ = {
+		84BCD9771EE1DF0F00B80197 /* SingleTons */ = {
 			isa = PBXGroup;
 			children = (
+				849C20311EE1A05500866D1B /* AppDelegate.swift */,
 				84BCD96B1EE1A37500B80197 /* SwotseApi.swift */,
+				84BCD96E1EE1A3A000B80197 /* HelperInstance.swift */,
 			);
-			name = Api;
+			name = SingleTons;
 			sourceTree = "<group>";
 		};
 		886557EAE36F2595C340DDEC /* Frameworks */ = {

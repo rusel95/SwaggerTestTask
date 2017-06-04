@@ -12,17 +12,10 @@ class AllUsersTableViewController: UITableViewController {
     
     fileprivate var allUsers = [User]()
     
-    //the very early check if user logged
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         checkIfUserIsLoggedIn()
         setNavBar()
-    }
-    
-    func setNavBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "Exit"), style: .plain, target: self, action: #selector(handleLogout) )
-        self.navigationItem.title = UserDefaults.standard.value(forKey: "userName") as! String?
     }
     
     // MARK: - Table view data source
@@ -47,11 +40,22 @@ class AllUsersTableViewController: UITableViewController {
 //MARK: my functions
 extension AllUsersTableViewController {
     
+    func setNavBar() {
+        self.navigationItem.title = UserDefaults.standard.value(forKey: HelperInstance.shared.userNameUserDefaults) as! String?
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "logout1"), style: .done, target: self, action: #selector(handleLogout) )
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = HelperInstance.shared.buttonColor
+    }
+    
     func checkIfUserIsLoggedIn() {
-        if UserDefaults.standard.value(forKey: "userKey") == nil {
+        if UserDefaults.standard.value(forKey: HelperInstance.shared.keyUserDefaults) == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            getAllUsers()
+            if HelperInstance.shared.isInternetAvailable() {
+                getAllUsers()
+            } else {
+                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+            }
         }
     }
     
@@ -68,7 +72,7 @@ extension AllUsersTableViewController {
                 self.allUsers = allUsers!
                 self.tableView.reloadData()
             } else {
-                print("some shit mistake while downloading")
+               HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
             }
         }
     }

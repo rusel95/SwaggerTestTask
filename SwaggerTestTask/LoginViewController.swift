@@ -113,14 +113,6 @@ class LoginViewController: UIViewController {
         return sc
     }()
     
-    func handleLoginRegister() {
-        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
-            handleLogin()
-        } else {
-            handleRegister()
-        }
-    }
-    
     func handleLoginRegisterChange(){
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
@@ -231,38 +223,62 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     
-    func handleLogin() {
-        
-        let userName = nameTextField.text!
-        let password = passwordTextField.text!
-        SwotseApi.shared.loginUserWith(userName: userName, password: password, token: HelperInstance.shared.token ) { key in
-            if key != nil {
-                UserDefaults.standard.set(userName, forKey: "userName")
-                UserDefaults.standard.set(key, forKey: "userKey")
-                self.dismiss(animated: true, completion: nil)
+    func handleLoginRegister() {
+        if HelperInstance.shared.isInternetAvailable() {
+            if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+                handleLogin()
             } else {
-                //some alert needed
-                print("key is nill for some reason")
+                handleRegister()
+            }
+        } else {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+        }
+    }
+    
+    func handleLogin() {
+        let enteredUserName = nameTextField.text!
+        let enteredPassword = passwordTextField.text!
+        
+        if enteredUserName == "" || enteredPassword == "" {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+        } else if enteredPassword.characters.count < 6 {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self)
+        } else {
+            SwotseApi.shared.loginUserWith(userName: enteredUserName, password: enteredPassword, token: HelperInstance.shared.standartToken ) { key in
+                if key != nil {
+                    UserDefaults.standard.set(enteredUserName, forKey: HelperInstance.shared.userNameUserDefaults)
+                    UserDefaults.standard.set(key, forKey: HelperInstance.shared.keyUserDefaults)
+                    self.dismiss(animated: true, completion: nil)
+                } else {
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
+                }
             }
         }
     }
     
     func handleRegister() {
-        SwotseApi.shared.registerUserWith(userName: nameTextField.text!, password: passwordTextField.text!, email: emailTextField.text!) { token in
-            
-            switch token {
-            case "Email already in use"? :
-                //need alert about already registered user
-                print("Email already in use alert")
-                break
-            case nil:
-                //some alert
-                print("some error")
-                break
-                
-            default:
-                UserDefaults.standard.set(token, forKey: "token")
-                self.dismiss(animated: true, completion: nil)
+        let enteredUserName = nameTextField.text!
+        let enteredPassword = passwordTextField.text!
+        let enteredEmail = emailTextField.text!
+        
+        if enteredUserName == "" || enteredPassword == "" || enteredEmail == "" {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+        } else if enteredPassword.characters.count < 6 {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.passwordShortError, currentView: self)
+        } else {
+            SwotseApi.shared.registerUserWith(userName: enteredUserName, password: enteredPassword, email: enteredEmail) { token in
+                switch token {
+                case HelperInstance.shared.emailInUse? :
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emailInUse, currentView: self)
+                    break
+                case nil:
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
+                    break
+                    
+                default:
+                    UserDefaults.standard.set(token, forKey: HelperInstance.shared.tokenUserDefaults)
+                    self.handleLogin()
+                }
             }
         }
     }

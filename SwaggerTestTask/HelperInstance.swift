@@ -14,7 +14,24 @@ class HelperInstance {
     static let shared = HelperInstance()
     private init () { }
     
-    var token = "17082b0c4ad99528891147c310fa325cb1e38f19"
+    let backgroundColor = UIColor.rgb(r: 133, g: 187, b: 63)
+    let buttonColor = UIColor.rgb(r: 88, g: 126, b: 57)
+    
+    let standartToken = "17082b0c4ad99528891147c310fa325cb1e38f19"
+    
+    let standartTitle = "OoOops.."
+    let internetConnectionErrorMessage = "Looks like some trouble with connection exists.. Please, check your internet connection and try again!"
+    let emptyFieldMessage = "Looks like some of the needed fields are empty... Please, check your input data!"
+    let someShitMessage = "Some shit error exists.. Don`t worry, be happy ;)"
+    
+    let userExistErrorMessage = "A user with this email already exists! Please, try Login or register with another email.."
+    let someErrorMessage = "Sorry, but looks like some unknown error exist.. Please, try again later"
+    let emailInUse = "Email already in use"
+    
+    let keyUserDefaults = "userKey"
+    let tokenUserDefaults = "token"
+    let userNameUserDefaults = "userName"
+    let passwordShortError = "You have entered to short password.. It should not be shorter than 6 characters!"
     
     func createAlert(title: String, message: String, currentView: UIViewController) {
         
