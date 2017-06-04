@@ -235,49 +235,50 @@ extension LoginViewController {
                 handleRegister()
             }
         } else {
-            HelperInstance.shared.createAlert(title: "OoOops", message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
         }
     }
     
     func handleLogin() {
-        let inputedUserName = nameTextField.text!
-        let inputedPassword = passwordTextField.text!
+        let enteredUserName = nameTextField.text!
+        let enteredPassword = passwordTextField.text!
         
-        if inputedUserName == "" {
-            HelperInstance.shared.createAlert(title: "OoOops", message: self.someErrorMessage, currentView: self)
-        } else if inputedPassword == "" {
-            HelperInstance.shared.createAlert(title: "OoOops", message: self.someErrorMessage, currentView: self)
+        if enteredUserName == "" || enteredPassword == "" {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
         } else {
-            
-            SwotseApi.shared.loginUserWith(userName: inputedUserName, password: inputedPassword, token: HelperInstance.shared.token ) { key in
+            SwotseApi.shared.loginUserWith(userName: enteredUserName, password: enteredPassword, token: HelperInstance.shared.standartToken ) { key in
                 if key != nil {
-                    UserDefaults.standard.set(inputedUserName, forKey: "userName")
-                    UserDefaults.standard.set(key, forKey: "userKey")
+                    UserDefaults.standard.set(enteredUserName, forKey: HelperInstance.shared.userNameUserDefaults)
+                    UserDefaults.standard.set(key, forKey: HelperInstance.shared.keyUserDefaults)
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    HelperInstance.shared.createAlert(title: "OoOops", message: self.someErrorMessage, currentView: self)
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: self.someErrorMessage, currentView: self)
                 }
             }
         }
     }
     
     func handleRegister() {
-        let inputedUserName = nameTextField.text!
+        let enteredUserName = nameTextField.text!
+        let enteredPassword = passwordTextField.text!
+        let enteredEmail = emailTextField.text!
         
-        SwotseApi.shared.registerUserWith(userName: inputedUserName, password: passwordTextField.text!, email: emailTextField.text!) { token in
-            
-            switch token {
-            case self.emailInUse? :
-                HelperInstance.shared.createAlert(title: "OoOops", message: self.userExistErrorMessage, currentView: self)
-                break
-            case nil:
-                HelperInstance.shared.createAlert(title: "OoOops", message: self.someErrorMessage, currentView: self)
-                break
-                
-            default:
-                UserDefaults.standard.set(inputedUserName, forKey: "userName")
-                UserDefaults.standard.set(token, forKey: "token")
-                self.dismiss(animated: true, completion: nil)
+        if enteredUserName == "" || enteredPassword == "" || enteredEmail == "" {
+            HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.emptyFieldMessage, currentView: self)
+        } else {
+            SwotseApi.shared.registerUserWith(userName: enteredUserName, password: enteredPassword, email: enteredEmail) { token in
+                switch token {
+                case self.emailInUse? :
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: self.userExistErrorMessage, currentView: self)
+                    break
+                case nil:
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: self.someErrorMessage, currentView: self)
+                    break
+                    
+                default:
+                    UserDefaults.standard.set(token, forKey: HelperInstance.shared.tokenUserDefaults)
+                    self.handleLogin()
+                }
             }
         }
     }

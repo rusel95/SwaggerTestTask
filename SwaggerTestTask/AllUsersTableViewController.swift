@@ -48,13 +48,13 @@ class AllUsersTableViewController: UITableViewController {
 extension AllUsersTableViewController {
     
     func checkIfUserIsLoggedIn() {
-        if UserDefaults.standard.value(forKey: "userKey") == nil {
+        if UserDefaults.standard.value(forKey: HelperInstance.shared.keyUserDefaults) == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            if !HelperInstance.shared.isInternetAvailable() {
+            if HelperInstance.shared.isInternetAvailable() {
                 getAllUsers()
             } else {
-                HelperInstance.shared.createAlert(title: "OoOops", message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
             }
         }
     }
@@ -72,7 +72,7 @@ extension AllUsersTableViewController {
                 self.allUsers = allUsers!
                 self.tableView.reloadData()
             } else {
-                print("some shit mistake while downloading")
+               HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
             }
         }
     }
