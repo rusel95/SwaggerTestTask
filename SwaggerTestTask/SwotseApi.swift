@@ -29,7 +29,7 @@ class SwotseApi {
             case .success:
                 let data = response.result.value!
                 
-                let allUsers = AllUsers(response: data).array
+                let allUsers = UsersParser(response: data).array
                 
                 giveData(allUsers)
                 
@@ -102,7 +102,6 @@ class SwotseApi {
     func logOut() {
         UserDefaults.standard.removeObject(forKey: "userKey")
         UserDefaults.standard.removeObject(forKey: "userName")
-        RealmCRUD.shared.deleteAllUsers()
     }
     
 }

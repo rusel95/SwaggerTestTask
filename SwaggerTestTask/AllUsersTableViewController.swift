@@ -19,7 +19,6 @@ class AllUsersTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userArray.count
     }
@@ -70,9 +69,11 @@ extension AllUsersTableViewController {
     
     func handleLogout() {
         SwotseApi.shared.logOut()
+        RealmCRUD.shared.deleteAllUsers()
+        
         let loginViewController = LoginViewController()
         loginViewController.allUsersTableViewController = self
-        present(loginViewController, animated: true, completion: nil)
+        present(loginViewController, animated: false, completion: nil)
     }
     
     func getAllUsers() {
