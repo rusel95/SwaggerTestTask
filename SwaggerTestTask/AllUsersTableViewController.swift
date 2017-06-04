@@ -51,11 +51,18 @@ extension AllUsersTableViewController {
         if UserDefaults.standard.value(forKey: HelperInstance.shared.keyUserDefaults) == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            if HelperInstance.shared.isInternetAvailable() {
-                getAllUsers()
+            
+            allUsers = RealmCRUD.shared.queryUsersToArray()
+            if allUsers.count != 0 {
+                self.tableView.reloadData()
             } else {
-                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+                if HelperInstance.shared.isInternetAvailable() {
+                    getAllUsers()
+                } else {
+                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+                }
             }
+            
         }
     }
     
@@ -69,10 +76,11 @@ extension AllUsersTableViewController {
     func getAllUsers() {
         SwotseApi.shared.getAllUsers() { allUsers in
             if allUsers != nil {
+                RealmCRUD.shared.write(allUsers: allUsers!)
                 self.allUsers = allUsers!
                 self.tableView.reloadData()
             } else {
-               HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
+                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
             }
         }
     }
