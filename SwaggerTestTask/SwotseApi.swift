@@ -29,7 +29,7 @@ class SwotseApi {
             case .success:
                 let data = response.result.value!
                 
-                let allUsers = AllUsers(response: data).array
+                let allUsers = UsersParser(response: data).array
                 
                 giveData(allUsers)
                 
