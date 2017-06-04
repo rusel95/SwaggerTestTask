@@ -29,16 +29,19 @@ class UsersParser {
     
     private func getProperTime(from time: String) -> String {
         
-        var temp = String()
+        var properTime = String()
         let index = time.index(time.startIndex, offsetBy: 16)
-        let iNeededDate = time.substring(to: index)
-        let formatter = DateFormatter.init()
-        formatter.timeZone = TimeZone(identifier: "UTC")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-        let date = formatter.date(from: iNeededDate)
-        temp = DateFormatter.localizedString(from: date!, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.short)
+        let neededDate = time.substring(to: index)
         
-        return temp
+        let formatter = DateFormatter.init()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        let date = formatter.date(from: neededDate)
+        
+        formatter.dateFormat = "d MMM, HH:mm"
+        properTime = formatter.string(from: date!)
+        
+        return properTime
     }
     
 }
