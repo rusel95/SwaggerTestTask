@@ -10,7 +10,7 @@ import UIKit
 
 class AllUsersTableViewController: UITableViewController {
     
-    fileprivate var allUsers = [User]()
+    fileprivate var userArray = [User]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,13 +21,13 @@ class AllUsersTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allUsers.count
+        return userArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
         
-        let tempUser = allUsers[indexPath.row]
+        let tempUser = userArray[indexPath.row]
         cell.textLabel?.text = tempUser.userName
         cell.detailTextLabel?.text = tempUser.lastLogin
         
@@ -52,17 +52,19 @@ extension AllUsersTableViewController {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
             
-            allUsers = RealmCRUD.shared.queryUsersToArray()
-            if allUsers.count != 0 {
+            //download users from realm and update UI if realm is not empty
+            userArray = RealmCRUD.shared.queryUsersToArray()
+            
+            if userArray.count != 0 {
                 self.tableView.reloadData()
-            } else {
-                if HelperInstance.shared.isInternetAvailable() {
-                    getAllUsers()
-                } else {
-                    HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
-                }
             }
             
+            //check for new info
+            if HelperInstance.shared.isInternetAvailable() {
+                getAllUsers()
+            } else {
+                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.downloadMoreDataErrorMessage, currentView: self)
+            }
         }
     }
     
@@ -74,11 +76,13 @@ extension AllUsersTableViewController {
     }
     
     func getAllUsers() {
-        SwotseApi.shared.getAllUsers() { allUsers in
-            if allUsers != nil {
-                RealmCRUD.shared.write(allUsers: allUsers!)
-                self.allUsers = allUsers!
-                self.tableView.reloadData()
+        SwotseApi.shared.getAllUsers() { userArray in
+            if userArray != nil {
+                if self.userArray.count < userArray!.count {
+                    RealmCRUD.shared.write(allUsers: userArray!)
+                    self.userArray = userArray!
+                    self.tableView.reloadData()
+                }
             } else {
                 HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.someShitMessage, currentView: self)
             }

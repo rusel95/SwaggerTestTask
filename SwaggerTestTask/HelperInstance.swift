@@ -21,6 +21,7 @@ class HelperInstance {
     
     let standartTitle = "OoOops.."
     let internetConnectionErrorMessage = "Looks like some trouble with connection exists.. Please, check your internet connection and try again!"
+    let downloadMoreDataErrorMessage = "Can`t check if new users information exist because of internet trouble.. Please, check internet connection and try again later!"
     let emptyFieldMessage = "Looks like some of the needed fields are empty... Please, check your input data!"
     let someShitMessage = "Some shit error exists.. Don`t worry, be happy ;)"
     
@@ -32,6 +33,7 @@ class HelperInstance {
     let tokenUserDefaults = "token"
     let userNameUserDefaults = "userName"
     let passwordShortError = "You have entered to short password.. It should not be shorter than 6 characters!"
+    
     
     func createAlert(title: String, message: String, currentView: UIViewController) {
         
