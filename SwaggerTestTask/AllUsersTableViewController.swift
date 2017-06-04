@@ -63,7 +63,7 @@ extension AllUsersTableViewController {
             if HelperInstance.shared.isInternetAvailable() {
                 getAllUsers()
             } else {
-                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.internetConnectionErrorMessage, currentView: self)
+                HelperInstance.shared.createAlert(title: HelperInstance.shared.standartTitle, message: HelperInstance.shared.downloadMoreDataErrorMessage, currentView: self)
             }
         }
     }
